@@ -4,6 +4,7 @@ import { Answer } from "../@types/Question";
 interface ScoreContextData {
   chosenAnswers: Answer[];
   handleChosenAnswers: (answer: Answer) => void;
+  reset: () => void;
 }
 
 export const ScoreContext = createContext<ScoreContextData>(
@@ -21,8 +22,14 @@ export default function ScoreProvider({
     setChosenAnswers((prev) => [...prev, answer]);
   };
 
+  const reset = () => {
+    setChosenAnswers([]);
+  };
+
   return (
-    <ScoreContext.Provider value={{ handleChosenAnswers, chosenAnswers }}>
+    <ScoreContext.Provider
+      value={{ handleChosenAnswers, chosenAnswers, reset }}
+    >
       {children}
     </ScoreContext.Provider>
   );
