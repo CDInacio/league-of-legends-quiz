@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Answer, Summary } from "../@types/Question";
 import Container from "../components/Container";
+import GameSummary from "../components/GameSummary";
 import { questions as q } from "../data/questions";
 import UseScore from "../hooks/useScore";
 
@@ -15,7 +16,7 @@ export default function GamePage() {
   const [questionId, setQuestionId] = useState<number>(0);
   const [gameSummary, setGameSummary] = useState<any>([]);
 
-  const { chosenAnswers, handleChosenAnswers } = UseScore();
+  const { chosenAnswers, handleChosenAnswers, reset } = UseScore();
 
   let questions = q.filter((question) => question.game === game);
 
@@ -51,17 +52,22 @@ export default function GamePage() {
     return num;
   };
 
+  const handleGoBack = () => {
+    reset();
+    navigate("/");
+  };
+
   return (
     <Container>
       <span
-        onClick={() => {}}
+        onClick={handleGoBack}
         className="absolute left-[30px] top-[10px] md:top-[50px] sm:left-[60px] md:left-[100px] xl:left-[400px]  cursor-pointer"
       >
         <IoArrowBack size={30} />
       </span>
       {chosenAnswers.length !== questions.length ? (
         <>
-          <div className="w-[300px] sm:w-[350px] lg:w-[500px] mb-[50px] bg-gray-200 rounded-lg  ">
+          <div className="w-[300px] sm:w-[350px] lg:w-[500px] mb-[50px] bg-gray-200 rounded-lg  overflow-hidden">
             <div
               className="h-2 bg-blue-500 transition-all"
               style={{ width: `${questionId * 10}%` }}
@@ -83,19 +89,11 @@ export default function GamePage() {
           </div>
         </>
       ) : (
-        <>
-          <p>
-            Vpcê acertou {getNumOfCorrectAnswers()} de um total de{" "}
-            {questions.length} questões
-          </p>
-          {gameSummary.map((data: Summary, i: number) => (
-            <div key={i} className="flex flex-col items-center">
-              <p>{data.question}</p>
-              <p>Resposta coreta{data.correctAnswer.answer}</p>
-              <p>Resposta do jogador{data.chosenAnswer.answer}</p>
-            </div>
-          ))}
-        </>
+        <GameSummary
+          gameSummary={gameSummary}
+          getNumOfCorrectAnswers={getNumOfCorrectAnswers}
+          questions={questions}
+        />
       )}
 
       <ToastContainer />
