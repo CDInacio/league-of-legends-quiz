@@ -25,10 +25,11 @@ export default function Choosegame({ games }: ChoosegameProps) {
               src={game.image}
               alt={`${game.name} image`}
             />
-            <p className="absolute inset-0 flex items-center justify-center font-bold sm:text-lg opacity-0 group-hover:opacity-100 transition-all z-10">
+            <p className="absolute hidden md:flex inset-0  items-center justify-center font-bold sm:text-lg opacity-0 group-hover:opacity-100 transition-all z-10">
               {game.name}
             </p>
           </div>
+          <p className="text-center mt-[10px] md:hidden">{game.name}</p>
         </div>
       ))}
     </div>
