@@ -80,7 +80,7 @@ export default function GamePage() {
             {questions[questionId]?.answers.map((answer, i) => (
               <p
                 key={i}
-                className={`w-[300px] sm:w-[400px] lg:w-[500px] text-sm md:text-base border-2 bg-sky-900 hover:bg-sky-950 transition-all cursor-pointer  hover:border-2 border-transparent  rounded my-[10px] p-[5px]  text-center`}
+                className={`w-[300px] sm:w-[400px] lg:w-[500px] text-sm md:text-base border-2 bg-sky-900 hover:bg-transparent hover:border-sky-900 transition-all cursor-pointer  hover:border-2 border-transparent  rounded my-[10px] p-[5px]  text-center`}
                 onClick={() => handleChosenAnswer(answer)}
               >
                 {answer.answer}
